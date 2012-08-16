@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<resources>
+    <string-array name="facolta">
+        <item >Architettura</item>
+        <item >Economia</item>
+        <item >Giurisprudenza</item>
+        <item >Ingegneria</item>
+        <item >Lettere</item>
+        <item >Scienze della Formazione</item>
+        <item >Scienze Politiche</item>
+        <item >Scienze Matematiche, Fisiche e Naturali</item>
+    </string-array>
+    <string-array name="url">
+        <item >http://orari.uniroma3.it/arch/esporta.php</item>
+        <item >http://orari.uniroma3.it/economia/esporta.php</item>
+        <item >http://orari.uniroma3.it/giur/esporta.php</item>
+        <item >http://orari.uniroma3.it/ing/esporta.php</item>
+        <item >http://orari.uniroma3.it/lettere/esporta.php</item>
+        <item >http://orari.uniroma3.it/formazione/esporta.php</item>
+        <item >http://orari.uniroma3.it/spolitiche/esporta.php</item>
+        <item >http://orari.uniroma3.it/smfn/esporta.php</item>
+    </string-array>
+    <string name="rssUrlRomaTre">http://mobile.uniroma3.it/ateneo.rss</string>
+    <string-array name="rssUrl">
+        <item >http://mobile.uniroma3.it/arch.rss</item>
+        <item >http://mobile.uniroma3.it/economia.rss</item>
+        <item >http://mobile.uniroma3.it/giur.rss</item>
+        <item >http://mobile.uniroma3.it/ing.rss</item>
+        <item >http://mobile.uniroma3.it/lettere.rss</item>
+        <item >http://mobile.uniroma3.it/formazione.rss</item>
+        <item >http://mobile.uniroma3.it/spolitiche.rss</item>
+        <item >http://mobile.uniroma3.it/smfn.rss</item>
+    </string-array>
+    <string-array name="color">
+        <item >#FFFF00</item> <!-- Architettura  -->
+        <item >#993399</item> <!-- Economia -->
+        <item >#000066</item> <!-- Giurisprudenza -->
+        <item >#666666</item> <!-- Ingegneria -->
+        <item >#FF99FF</item> <!-- Lettere -->
+        <item >#FFFFFF</item> <!-- Scienze della Formazione -->
+        <item >#66FFFF</item> <!-- Scienze Politiche -->
+        <item >#33FF33</item> <!-- SSFFNN -->
+    </string-array>
+    <string-array name="whiteLogo">
+        <item>Ingegneria</item>
+        <item>Economia</item>
+        <item>Giurisprudenza</item>
+    </string-array>
+
+    <string-array name="themeOptions">
+        <item>Light Theme</item>
+        <item>Dark Theme</item>
+    </string-array>
+
+    <string-array name="themeValues">
+        <item>LightTheme</item>
+        <item>DarkTheme</item>
+    </string-array>
+</resources>

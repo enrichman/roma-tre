@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/rss_list_title"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/rssListTitle"
+            android:gravity="center" />
+
+    <TextView
+            android:id="@+id/rss_connection"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center"
+            android:text="@string/rssConnection"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/rss_list_title"/>
+
+    <ListView
+            android:id="@+id/rss_list"
+            android:layout_below="@+id/rss_list_title"
+            android:layout_height="200dp"
+            android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:background="#EEE"/>
+
+    <!--
+    <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_below="@+id/rss_list"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/imageDescription"
+            android:src="@drawable/logo" />
+
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rss_list"
+            android:gravity="center"
+            android:text="@string/titoloIniziale"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000000"
+            android:textStyle="bold"/>  -->
+
+    <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mySpinner"
+            android:layout_below="@+id/rss_list"
+            android:gravity="center"
+            android:text="@string/descrIniziale"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+            android:id="@+id/mySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button"
+            android:layout_alignParentLeft="true"
+            android:entries="@array/facolta"/>
+
+    <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/button"/>
+
+</RelativeLayout>

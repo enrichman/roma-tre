@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/title"
+              android:layout_width="fill_parent"
+              android:layout_height="60dp"
+              android:background="@color/titleBackground"
+              android:orientation="horizontal"
+              android:gravity="center_vertical">
+
+    <ImageView
+            android:id="@+id/titleLogo"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/imageDescription"
+            android:src="@drawable/title_logo_blue"/>
+
+    <TextView
+            android:id="@+id/title_text"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text="@string/title"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="15dp"/>
+
+</LinearLayout>

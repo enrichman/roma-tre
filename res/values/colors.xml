@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<resources>
+    <color name="titleBackground">#cecece</color>
+    <color name="textColor">#000</color>
+    <color name="darkBackground">#3e3e3e</color>
+</resources>

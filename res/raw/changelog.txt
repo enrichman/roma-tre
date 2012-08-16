@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <style type='text/css'>
+      a            { color:#a0a0e0 }
+      div.title    {
+          color:#C0F0C0;
+          font-size:1.2em;
+          font-weight:bold;
+          margin-top:1em;
+          margin-bottom:0.5em;
+          text-align:center }
+      div.subtitle {
+          color:#C0F0C0;
+          font-size:0.8em;
+          margin-bottom:1em;
+          text-align:center }
+      div.freetext { color:#F0F0F0 }
+      div.list     { color:#C0C0F0 }
+    </style>
+  </head>
+  <body>
+$ 1.2
+  % Version 1.2
+    * Nuovo design
+    * Integrazione degli avvisi RSS dell'ateneo e delle facoltà
+    * Aggiunte 'Architettura' e 'Scienze Matematiche, Fisiche e Naturali'
+    * Nuove impostazioni
+$ 1.1
+  % Version 1.1
+    * Download e salvataggio delle lezioni <br/>(caricamento istantaneo delle lezioni già caricate)
+    * Integrazione completa con il sito di Roma Tre <br/>(lezioni assolutamente fedeli)
+    * Correzione di alcuni bug
+$ 1.0.2
+  % Version 1.0.2
+    * Modificate alcune impostazioni di compatibilità
+$ 1.0.1
+  % Version 1.0.1
+    * Correzione di alcuni bug
+$ 1.0
+  % Version 1.0
+    * Prima release! ;)
+$ END_OF_CHANGE_LOG
+  </body>
+</html>

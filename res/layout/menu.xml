@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!--
+    <TextView
+        android:id="@+id/facolta_selezionata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" /> -->
+
+
+    <TextView
+            android:id="@+id/rss_list_title"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/rssListTitle"
+            android:gravity="center" />
+
+    <TextView
+            android:id="@+id/rss_connection"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center"
+            android:text="@string/rssConnection"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/rss_list_title"/>
+
+    <ListView
+            android:id="@+id/rss_list"
+            android:layout_below="@+id/rss_list_title"
+            android:layout_height="200dp"
+            android:layout_width="fill_parent"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:background="#EEE"/>
+
+    <LinearLayout
+            android:id="@+id/auleLibere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+
+    <Button
+        android:id="@+id/btn_lezioni_giorno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/buttonLezioniGiorno" />
+
+
+
+    <Button
+        android:id="@+id/btn_aule_libere"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/buttonAuleLibere" />
+
+    <Button
+        android:id="@+id/btn_lezioni_altri_gg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/buttonLezioniData" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

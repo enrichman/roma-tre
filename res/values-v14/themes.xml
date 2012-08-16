@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<resources>
+    <style name="LightTheme" parent="@android:style/Theme.Light">
+        <!-- Any customizations for your app running on post-4.0 devices here
+        <item name="android:icon">@drawable/title_logo</item>
+        <item name="android:label">@string/holo_title</item>  -->
+        <item name="android:windowTitleBackgroundStyle">@color/titleBackground</item>
+        <item name="android:windowTitleSize">60dp</item>
+    </style>
+
+    <style name="DarkTheme" parent="@android:style/Theme">
+        <!-- Any customizations for your app running on post-4.0 devices here
+        <item name="android:icon">@drawable/title_logo</item>
+        <item name="android:label">@string/holo_title</item>  -->
+        <item name="android:windowTitleBackgroundStyle">@color/titleBackground</item>
+        <item name="android:windowTitleSize">60dp</item>
+    </style>
+</resources>

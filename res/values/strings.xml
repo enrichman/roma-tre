@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<resources>
+
+    <string name="versionName">1.2</string>
+
+    <string name="app_name">Roma TRE</string>
+    <string name="title">Orari ed Avvisi</string>
+    <string name="holo_title">Roma Tre</string>
+    <string name="imageDescription">Logo iniziale</string>
+    <string name="titoloIniziale">Università degli Studi\n\"Roma Tre\"</string>
+    <string name="descrIniziale">Seleziona la facoltà e scopri subito le lezioni in corso e le aule libere</string>
+    <string name="informazioni">
+        "Realizzazione a cura dell'Università degli Studi Roma TRE - Area Telecomunicazioni\n\n"
+        "Responsabile della programmazione:\n  Enrico Candino - www.enricocandino.it\n\n"
+        "Coordinamento:\n  Joram Marino - www.joram.it\n\n"
+        "Il programma è rilasciato sotto licenza GPL v3 ed è liberamente scaricabile da "
+        "\nhttp://github.com/enrichman/roma-tre"</string>
+
+    <string name="rssListTitle">Avvisi</string>
+    <string name="rssConnection">Nessuna connessione internet disponibile</string>
+    <string name="rssBaseUrl">http://mobile.uniroma3.it/</string>
+
+    <!-- SETTINGS -->
+    <string name="autoscroll">Abilita autoscroll per gli avvisi</string>
+
+    <string name="button">Trova le lezioni!</string>
+    
+    <string name="buttonLezioniGiorno">Mostra le lezioni di oggi</string>
+    <string name="buttonAuleLibere">Mostra le aule libere</string>
+    <string name="buttonLezioniData">Mostra le lezioni di altri giorni</string>
+    
+    <string name="changelog_full_title">Change Log</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full"/>
+
+</resources>
