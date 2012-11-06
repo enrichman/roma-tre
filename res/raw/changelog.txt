@@ -19,6 +19,11 @@
     </style>
   </head>
   <body>
+$ 1.3
+  % Version 1.3
+    * Fix bug per la ricerca delle Aule Libere
+    * Dark Theme impostato di default
+    * Cambio nome in "RomaTRE - Orari e avvisi"
 $ 1.2
   % Version 1.2
     * Nuovo design

@@ -17,7 +17,7 @@ public class ThemeManager {
 
     public static void setTheme(Activity activity) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(activity);
-        String theme = pref.getString("theme", "LightTheme");
+        String theme = pref.getString("theme", "DarkTheme");
         int customTheme = activity.getResources().getIdentifier(theme, "style", activity.getPackageName());
         activity.setTheme(customTheme);
     }

@@ -37,11 +37,19 @@ public class AuleLibereUtility {
 				lezioniInCorso.add(l);
 			
 		for(Lezione l : lezioniInCorso)
-			auleOccupate.add(l.getAula());
-		
-		for(String aula : aule)
-			if(!auleOccupate.contains(aula))
-				auleLibere.add(aula);
+			auleOccupate.add(l.getAula().trim());
+
+		for(String aula : aule) {
+            String aulaClean = "";
+            String[] aulaStrArr = aula.split(" ");
+            for(int i = 0; i < aulaStrArr.length - 1; i++) {
+                aulaClean += " " + aulaStrArr[i];
+            }
+            aulaClean = aulaClean.trim();
+			if(!auleOccupate.contains(aulaClean)) {
+				auleLibere.add(aulaClean);
+            }
+        }
 
         ArrayList<String> auleOrdinate = new ArrayList<String>(auleLibere);
         Collections.sort(auleOrdinate);

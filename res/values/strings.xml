@@ -11,9 +11,9 @@
 -->
 <resources>
 
-    <string name="versionName">1.2</string>
+    <string name="versionName">1.3</string>
 
-    <string name="app_name">Roma TRE</string>
+    <string name="app_name">RomaTRE - Orari e avvisi</string>
     <string name="title">Orari ed Avvisi</string>
     <string name="holo_title">Roma Tre</string>
     <string name="imageDescription">Logo iniziale</string>
