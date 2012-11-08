@@ -31,11 +31,11 @@ public class MenuActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeManager.setTheme(this);
         super.onCreate(savedInstanceState);
         //int sdk = Build.VERSION.SDK_INT;
         //if (sdk < 11) {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        ThemeManager.setTheme(this);
         setContentView(R.layout.main);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
         //}
