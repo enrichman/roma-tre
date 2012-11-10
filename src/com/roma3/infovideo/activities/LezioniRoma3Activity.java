@@ -1,6 +1,9 @@
 package com.roma3.infovideo.activities;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.widget.*;
 import com.roma3.infovideo.utility.*;
@@ -67,10 +70,34 @@ public class LezioniRoma3Activity extends MenuActivity {
 
         AppRater.app_launched(this);
 
-        new RssTask(this).execute(getString(R.string.rssUrlRomaTre));
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo == null) {
+            LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
+            errorContainer.setVisibility(View.VISIBLE);
+            errorContainer.bringToFront();
+            errorContainer.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
+                    errorContainer.setVisibility(View.INVISIBLE);
+                    LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
+                    container.setVisibility(View.VISIBLE);
+                    container.bringToFront();
+                    launch();
+                }
+            });
+        } else {
+            LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
+            container.setVisibility(View.VISIBLE);
+            container.bringToFront();
+            launch();
+        }
 	}
 
-
+    protected void launch() {
+        new RssTask(this).execute(getString(R.string.rssUrlRomaTre));
+    }
 
     @Override
     protected void onPause() {

@@ -8,8 +8,9 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import com.roma3.infovideo.model.RssItem;
 import com.roma3.infovideo.activities.adapter.RssAdapter;
 import com.roma3.infovideo.R;
@@ -35,27 +36,40 @@ public class RssTask extends AsyncTask<String, Void, ArrayList<RssItem>> {
 
     private Activity activity;
 
+    protected static String url;
+
     public RssTask(Activity activity) {
         this.activity = activity;
     }
 
     @Override
     protected ArrayList<RssItem> doInBackground(String... params) {
-        ArrayList<RssItem> rss = null;
         try {
-            rss = new RssDownloader().downloadRss(params[0]);
-        } catch (RssDownloadingException e) {
-            Log.e("LEZIONI ROMA TRE", e.getMessage());
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Log.e("LEZIONI ROMA TRE", "Error while waiting for download the RSS");
+        }
+        url = params[0];
+        ArrayList<RssItem> rss = null;
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null) {
+            try {
+                rss = new RssDownloader().downloadRss(url);
+            } catch (RssDownloadingException e) {
+                Log.e("LEZIONI ROMA TRE", e.getMessage());
+            }
         }
         return rss;
     }
 
     @Override
     protected void onPostExecute(ArrayList<RssItem> rssItems) {
+        LinearLayout container = (LinearLayout) activity.findViewById(R.id.rss_loading_container);
+        container.setVisibility(View.INVISIBLE);
         final ListView listView = (ListView) activity.findViewById(R.id.rss_list);
         if (rssItems != null) {
             listView.setAdapter(new RssAdapter(this.activity, R.layout.rss_item, rssItems));
-
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(activity.getBaseContext());
             boolean autoscroll = pref.getBoolean("rss_autoscroll", true);
 
@@ -76,12 +90,8 @@ public class RssTask extends AsyncTask<String, Void, ArrayList<RssItem>> {
                 }, 2000, 3500);
             }
         } else {
-            ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo == null) {
-                TextView textView = (TextView) activity.findViewById(R.id.rss_connection);
-                textView.bringToFront();
-            }
+            LinearLayout errorContainer = (LinearLayout) activity.findViewById(R.id.rss_error_container);
+            errorContainer.setVisibility(View.VISIBLE);
         }
     }
 

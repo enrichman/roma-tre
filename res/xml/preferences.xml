@@ -22,7 +22,7 @@
         <CheckBoxPreference android:key="rss_autoscroll"
                             android:title="Autoscroll"
                             android:summary="@string/autoscroll"
-                            android:defaultValue="true"/>
+                            android:defaultValue="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory

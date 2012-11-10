@@ -11,7 +11,7 @@
 -->
 <resources>
 
-    <string name="versionName">1.3.1</string>
+    <string name="versionName">1.4</string>
 
     <string name="app_name">RomaTRE - Orari e avvisi</string>
     <string name="title">Orari ed Avvisi</string>
@@ -27,7 +27,8 @@
         "\nhttp://github.com/enrichman/roma-tre"</string>
 
     <string name="rssListTitle">Avvisi</string>
-    <string name="rssConnection">Nessuna connessione internet disponibile</string>
+    <string name="rssConnection">Nessuna connessione internet disponibile.\nRiprova</string>
+    <string name="rssLoading">Caricamento avvisi</string>
     <string name="rssBaseUrl">http://mobile.uniroma3.it/</string>
 
     <!-- SETTINGS -->

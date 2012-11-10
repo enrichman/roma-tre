@@ -33,14 +33,50 @@
             android:text="@string/rssListTitle"
             android:gravity="center" />
 
-    <TextView
-            android:id="@+id/rss_connection"
+
+    <LinearLayout
+            android:id="@+id/rss_loading_container"
+            android:layout_below="@+id/rss_list_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:gravity="center"
-            android:text="@string/rssConnection"
+            android:orientation="vertical"
             android:layout_marginTop="50dp"
-            android:layout_below="@+id/rss_list_title"/>
+            android:gravity="center"
+            >
+
+        <ProgressBar
+                android:id="@+id/rss_loading_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                />
+        <TextView
+                android:id="@+id/rss_loading_text"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/rssLoading"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/rss_error_container"
+            android:layout_below="@+id/rss_list_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:gravity="center" >
+
+        <TextView
+                android:id="@+id/rss_connection"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/rssConnection"
+                android:gravity="center"
+                android:drawableBottom="@drawable/wifi"
+                android:drawablePadding="10dp"/>
+    </LinearLayout>
 
     <ListView
             android:id="@+id/rss_list"

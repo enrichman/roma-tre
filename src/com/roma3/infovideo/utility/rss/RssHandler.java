@@ -1,8 +1,8 @@
 package com.roma3.infovideo.utility.rss;
 
-import android.text.Html;
 import android.util.Log;
 import com.roma3.infovideo.model.RssItem;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -52,7 +52,7 @@ public class RssHandler extends DefaultHandler {
         value = buffer.toString();
         buffer.setLength(0);
 
-        value = Html.fromHtml(value).toString();
+        value = StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(StringEscapeUtils.unescapeHtml4(value)));
 
         if (localName.equals("pubDate") && inItem) {
             item.setPublishedDate(value);

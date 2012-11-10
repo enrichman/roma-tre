@@ -1,6 +1,9 @@
 package com.roma3.infovideo.activities;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.*;
 import com.roma3.infovideo.R;
 
@@ -41,6 +44,8 @@ public class SecondActivity extends MenuActivity {
     private int mese;
     private int giorno;
 
+    private String rssUrl;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
@@ -49,7 +54,7 @@ public class SecondActivity extends MenuActivity {
         this.selectedFaculty = bundle.getString("selectedFaculty");
         this.url = bundle.getString("url");
         this.color = bundle.getString("color");
-        String rssUrl = bundle.getString("rssUrl");
+        rssUrl = bundle.getString("rssUrl");
         //int sdk = Build.VERSION.SDK_INT;
         //if(sdk < 11) {
         LinearLayout title = (LinearLayout) findViewById(R.id.title);
@@ -102,9 +107,33 @@ public class SecondActivity extends MenuActivity {
             }
         });
 
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo == null) {
+            LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
+            errorContainer.setVisibility(View.VISIBLE);
+            errorContainer.bringToFront();
+            errorContainer.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
+                    errorContainer.setVisibility(View.INVISIBLE);
+                    LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
+                    container.setVisibility(View.VISIBLE);
+                    container.bringToFront();
+                    launch();
+                }
+            });
+        } else {
+            LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
+            container.setVisibility(View.VISIBLE);
+            container.bringToFront();
+            launch();
+        }
+    }
 
+    private void launch() {
         new RssTask(this).execute(rssUrl);
-
     }
 
     protected Dialog onCreateDialog(int id) {
