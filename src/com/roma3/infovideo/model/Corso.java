@@ -12,31 +12,31 @@ import java.util.ArrayList;
  * @author Enrico Candino
  */
 public class Corso {
-	
-	private String denominazione;
-	
-	private ArrayList<Lezione> lezioni;
 
-	public Corso() {
-		lezioni = new ArrayList<Lezione>();
-	}
-	
-	public String getDenominazione() {
-		return denominazione;
-	}
+    private String denominazione;
 
-	public void setDenominazione(String denominazione) {
-		this.denominazione = denominazione;
-	}
+    private ArrayList<Lezione> lezioni;
 
-	public ArrayList<Lezione> getLezioni() {
-		return lezioni;
-	}
+    public Corso() {
+        lezioni = new ArrayList<Lezione>();
+    }
 
-	public void setLezioni(ArrayList<Lezione> lezioni) {
-		this.lezioni = lezioni;
-	}
-	
-	
+    public String getDenominazione() {
+        return denominazione;
+    }
+
+    public void setDenominazione(String denominazione) {
+        this.denominazione = denominazione;
+    }
+
+    public ArrayList<Lezione> getLezioni() {
+        return lezioni;
+    }
+
+    public void setLezioni(ArrayList<Lezione> lezioni) {
+        this.lezioni = lezioni;
+    }
+
+
 
 }

@@ -1,19 +1,27 @@
 package com.roma3.infovideo.activities;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
-import android.widget.*;
-import com.roma3.infovideo.utility.*;
-import com.roma3.infovideo.activities.menu.MenuActivity;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.preference.PreferenceManager;
+import org.holoeverywhere.preference.SharedPreferences;
 
+import android.content.DialogInterface;
+import android.widget.*;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.roma3.infovideo.R;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import com.roma3.infovideo.utility.*;
 import com.roma3.infovideo.utility.rss.RssTask;
 
 /**
@@ -25,13 +33,15 @@ import com.roma3.infovideo.utility.rss.RssTask;
  *
  * @author Enrico Candino
  */
-public class LezioniRoma3Activity extends MenuActivity {
+public class LezioniRoma3Activity extends Activity {
 
     private ChangeLog changeLog;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        ThemeManager.setTheme(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
         changeLog = new ChangeLog(this);
         if (changeLog.firstRun()) {
@@ -39,16 +49,17 @@ public class LezioniRoma3Activity extends MenuActivity {
         }
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //prefs.edit().putBoolean("rss_autoscroll", prefs.getBoolean("rss_autoscroll", false)).commit();        
         int lastFaculty = prefs.getInt("lastFaculty", 0);
 
-        Spinner spinner = (Spinner) findViewById(R.id.mySpinner);
+        org.holoeverywhere.widget.Spinner spinner = (org.holoeverywhere.widget.Spinner) findViewById(R.id.mySpinner);
         spinner.setSelection(lastFaculty);
 
         Button button = (Button) findViewById(R.id.button);
-		button.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-                Spinner spinner = (Spinner) findViewById(R.id.mySpinner);
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                org.holoeverywhere.widget.Spinner spinner = (org.holoeverywhere.widget.Spinner) findViewById(R.id.mySpinner);
                 int position = spinner.getSelectedItemPosition();
                 String selected = getResources().getStringArray(R.array.facolta)[position];
                 String url = getResources().getStringArray(R.array.url)[position];
@@ -60,43 +71,67 @@ public class LezioniRoma3Activity extends MenuActivity {
                 editor.commit();
 
                 Intent i = new Intent(LezioniRoma3Activity.this,SecondActivity.class);
-				i.putExtra("selectedFaculty", selected);
+                i.putExtra("selectedFaculty", selected);
                 i.putExtra("color", color);
                 i.putExtra("url", url);
                 i.putExtra("rssUrl", rssUrl);
-				startActivity(i);
-			}
-		});
+                startActivity(i);
+            }
+        });
 
         AppRater.app_launched(this);
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo == null) {
-            LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
-            errorContainer.setVisibility(View.VISIBLE);
-            errorContainer.bringToFront();
-            errorContainer.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
-                    errorContainer.setVisibility(View.INVISIBLE);
-                    LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
-                    container.setVisibility(View.VISIBLE);
-                    container.bringToFront();
-                    launch();
-                }
-            });
-        } else {
-            LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
-            container.setVisibility(View.VISIBLE);
-            container.bringToFront();
-            launch();
-        }
-	}
-
-    protected void launch() {
         new RssTask(this).execute(getString(R.string.rssUrlRomaTre));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case(R.id.settings) :
+                openSettings();
+                return true;
+            case(R.id.credits) :
+                openInfoDialog();
+                return true;
+        }
+        return true;
+    }
+
+    private void openSettings() {
+        Intent i = new Intent(LezioniRoma3Activity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+
+    private void openInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Informazioni");
+        final ScrollView s_view = new ScrollView(this);
+        final TextView textView = new TextView(this);
+        final SpannableString spannableText = new SpannableString(getText(R.string.informazioni));
+        Linkify.addLinks(spannableText, Linkify.WEB_URLS);
+        textView.setText(spannableText);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setTextSize(14);
+        //textView.setTextColor(Color.LTGRAY);
+        textView.setPadding(5, 5, 5, 15);
+        s_view.addView(textView);
+        builder.setView(s_view);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Chiudi", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override

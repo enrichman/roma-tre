@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.roma3.infovideo.R;
 
+
 /**
  * Version 1.2
  * Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
@@ -22,8 +23,8 @@ public class TitleColorManager {
         for (String s : whiteFaculties) {
             if (s.equals(faculty)) {
                 textView.setTextColor(Color.WHITE);
-                ImageView image = (ImageView) activity.findViewById(R.id.titleLogo);
-                image.setImageResource(R.drawable.title_logo_white);
+//                ImageView image = (ImageView) activity.findViewById(R.id.titleLogo);
+//                image.setImageResource(R.drawable.title_logo_white);
             }
         }
     }

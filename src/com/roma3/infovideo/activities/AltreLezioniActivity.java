@@ -1,29 +1,30 @@
 package com.roma3.infovideo.activities;
 
-import android.graphics.Color;
-import android.view.Window;
-import android.widget.LinearLayout;
-import com.roma3.infovideo.model.Lezione;
-import com.roma3.infovideo.activities.adapter.LezioneAdapter;
-import com.roma3.infovideo.R;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
 
-import com.roma3.infovideo.utility.TitleColorManager;
-import com.roma3.infovideo.utility.lessons.LessonsDownloadingException;
-import com.roma3.infovideo.utility.lessons.LessonsDownloader;
+import org.holoeverywhere.app.ProgressDialog;
+
+import com.roma3.infovideo.model.Lezione;
 import com.roma3.infovideo.utility.ThemeManager;
-import com.roma3.infovideo.activities.menu.MenuListActivity;
+import com.roma3.infovideo.utility.lessons.LessonsDownloader;
+import com.roma3.infovideo.utility.lessons.LessonsDownloadingException;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.roma3.infovideo.R;
+import com.viewpagerindicator.TitlePageIndicator;
 
 /**
  * Version 1.2
@@ -34,16 +35,20 @@ import android.widget.Toast;
  *
  * @author Enrico Candino
  */
-public class AltreLezioniActivity extends MenuListActivity {
+public class AltreLezioniActivity extends CercaLezioni {
+
+    List<Fragment> fragments = new Vector<Fragment>();
+    private PagerAdapter mPagerAdapter;
+    private ViewPager mPager;
 
     private int anno;
     private int mese;
     private int giorno;
 
     public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
         ThemeManager.setTheme(this);
+        super.onCreate(savedInstanceState);
+
         //int sdk = Build.VERSION.SDK_INT;
 
         Bundle bundle = getIntent().getExtras();
@@ -54,40 +59,45 @@ public class AltreLezioniActivity extends MenuListActivity {
         String url = bundle.getString("url");
 
         //if (sdk < 11) {
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.second);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-        LinearLayout title = (LinearLayout) findViewById(R.id.title);
-        title.setBackgroundColor(Color.parseColor(bundle.getString("color")));
-        TextView titleText = (TextView) findViewById(R.id.title_text);
-        titleText.setText("Facoltà di " + selectedFaculty);
-        TitleColorManager.white(selectedFaculty, titleText, this);
-        //}
+//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+//        LinearLayout title = (LinearLayout) findViewById(R.id.title);
+//        title.setBackgroundColor(Color.parseColor(bundle.getString("color")));
+//        TextView titleText = (TextView) findViewById(R.id.title_text);
+//        titleText.setText("Facolt√† di " + selectedFaculty);
+//        TitleColorManager.white(selectedFaculty, titleText, this);
+//        //}
 
         new DownloadXmlTask(this).execute(selectedFaculty, url);
 
     }
 
+    public FragmentPagerAdapter getFragmentPagerAdapter() {
+        return this.mPagerAdapter;
+    }
+
     protected class DownloadXmlTask extends AsyncTask<String, Void, ArrayList<Lezione>> {
 
-        private ListActivity activity;
+        private FragmentActivity activity;
         private ProgressDialog dialog;
 
-        public DownloadXmlTask(ListActivity activity) {
+        public DownloadXmlTask(FragmentActivity activity) {
             this.activity = activity;
             dialog = new ProgressDialog(this.activity);
         }
 
         protected void onPreExecute() {
+            this.dialog.setCanceledOnTouchOutside(false);
             this.dialog.setMessage("Cerco le lezioni..");
             this.dialog.show();
         }
-
 
         @Override
         protected ArrayList<Lezione> doInBackground(String... params) {
 
             ArrayList<Lezione> lessons = null;
+
             String faculty = params[0];
             String url = params[1];
 
@@ -99,9 +109,8 @@ public class AltreLezioniActivity extends MenuListActivity {
                 LessonsDownloader downloader = new LessonsDownloader();
                 lessons = downloader.donwloadLessons(faculty, url, date, activity);
             } catch (LessonsDownloadingException e) {
-                Log.e("LEZIONI ROMA TRE", e.getMessage());
+                Log.e(e.getMessage(), e.toString());
             }
-
             return lessons;
 
         }
@@ -117,13 +126,32 @@ public class AltreLezioniActivity extends MenuListActivity {
                     Toast.makeText(AltreLezioniActivity.this, "Nessuna lezione trovata!", Toast.LENGTH_LONG).show();
                 else
                     Toast.makeText(AltreLezioniActivity.this, "Lettura completata!", Toast.LENGTH_LONG).show();
-                LezioneAdapter lezioneAdapter = new LezioneAdapter(this.activity, R.layout.row, result);
-                setListAdapter(lezioneAdapter);
-            } else
+                AltreLezioniActivity.this.result = result;
+
+                aula2lezioni = new HashMap<String, List<Lezione>>();
+                for(Lezione l : result) {
+                    List<Lezione> list = aula2lezioni.get(l.getAula());
+                    if(list == null) {
+                        list = new ArrayList<Lezione>();
+                        LezioniFragment f = (LezioniFragment) Fragment.instantiate(activity,LezioniFragment.class.getName());
+                        f.setTitle(l.getAula());
+                        fragments.add(f);
+                    }
+                    list.add(l);
+                    aula2lezioni.put(l.getAula(), list);
+                }
+
+                mPagerAdapter = new PagerAdapter(activity.getSupportFragmentManager(), fragments);
+                mPager = (ViewPager)activity.findViewById(R.id.pager);
+                mPager.setAdapter(mPagerAdapter);
+
+                //Bind the title indicator to the adapter
+                TitlePageIndicator titleIndicator = (TitlePageIndicator)findViewById(R.id.titles);
+                titleIndicator.setViewPager(mPager);
+            } else {
                 Toast.makeText(AltreLezioniActivity.this, "Errore!", Toast.LENGTH_LONG).show();
-
+            }
         }
-
     }
 
 }

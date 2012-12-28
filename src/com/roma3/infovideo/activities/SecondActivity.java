@@ -1,25 +1,33 @@
 package com.roma3.infovideo.activities;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.widget.*;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.TimePickerDialog;
+import org.holoeverywhere.app.DatePickerDialog;
+import org.holoeverywhere.widget.DatePicker;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.roma3.infovideo.R;
 
 import java.util.Calendar;
 
-import com.roma3.infovideo.utility.TitleColorManager;
+import com.roma3.infovideo.utility.ThemeManager;
 import com.roma3.infovideo.utility.rss.RssTask;
-import com.roma3.infovideo.activities.menu.MenuActivity;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 /**
  * Version 1.2
@@ -30,7 +38,7 @@ import android.view.View.OnClickListener;
  *
  * @author Enrico Candino
  */
-public class SecondActivity extends MenuActivity {
+public class SecondActivity extends Activity {
 
     private String selectedFaculty;
     private String url;
@@ -44,9 +52,8 @@ public class SecondActivity extends MenuActivity {
     private int mese;
     private int giorno;
 
-    private String rssUrl;
-
     public void onCreate(Bundle savedInstanceState) {
+        ThemeManager.setTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
@@ -54,18 +61,18 @@ public class SecondActivity extends MenuActivity {
         this.selectedFaculty = bundle.getString("selectedFaculty");
         this.url = bundle.getString("url");
         this.color = bundle.getString("color");
-        rssUrl = bundle.getString("rssUrl");
+        String rssUrl = bundle.getString("rssUrl");
         //int sdk = Build.VERSION.SDK_INT;
         //if(sdk < 11) {
-        LinearLayout title = (LinearLayout) findViewById(R.id.title);
-        title.setBackgroundColor(Color.parseColor(this.color));
-        TextView titleText = (TextView) findViewById(R.id.title_text);
-        titleText.setText("Facoltà di " + this.selectedFaculty);
-        TitleColorManager.white(selectedFaculty, titleText, this);
+        //LinearLayout title = (LinearLayout) findViewById(R.id.title);
+        //title.setBackgroundColor(Color.parseColor(this.color));
+        //TextView titleText = (TextView) findViewById(R.id.title_text);
+        //titleText.setText("Facolt√† di " + this.selectedFaculty);
+        //TitleColorManager.white(selectedFaculty, titleText, this);
         //}
 
         //TextView facolta_selezionata = (TextView) findViewById(R.id.facolta_selezionata);
-        //facolta_selezionata.setText("Facoltà di " + this.selectedFaculty);
+        //facolta_selezionata.setText("Facolt√† di " + this.selectedFaculty);
 
         Button lezioniOggi = (Button) findViewById(R.id.btn_lezioni_giorno);
         Button auleLibere = (Button) findViewById(R.id.btn_aule_libere);
@@ -107,33 +114,9 @@ public class SecondActivity extends MenuActivity {
             }
         });
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo == null) {
-            LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
-            errorContainer.setVisibility(View.VISIBLE);
-            errorContainer.bringToFront();
-            errorContainer.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LinearLayout errorContainer = (LinearLayout) findViewById(R.id.rss_error_container);
-                    errorContainer.setVisibility(View.INVISIBLE);
-                    LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
-                    container.setVisibility(View.VISIBLE);
-                    container.bringToFront();
-                    launch();
-                }
-            });
-        } else {
-            LinearLayout container = (LinearLayout) findViewById(R.id.rss_loading_container);
-            container.setVisibility(View.VISIBLE);
-            container.bringToFront();
-            launch();
-        }
-    }
 
-    private void launch() {
         new RssTask(this).execute(rssUrl);
+
     }
 
     protected Dialog onCreateDialog(int id) {
@@ -151,13 +134,62 @@ public class SecondActivity extends MenuActivity {
                 return dtp;
         }
         return null;
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case(R.id.settings) :
+                openSettings();
+                return true;
+            case(R.id.credits) :
+                openInfoDialog();
+                return true;
+        }
+        return true;
+    }
+
+    private void openSettings() {
+        Intent i = new Intent(SecondActivity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+
+    private void openInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Informazioni");
+        final ScrollView s_view = new ScrollView(this);
+        final TextView textView = new TextView(this);
+        final SpannableString spannableText = new SpannableString(getText(R.string.informazioni));
+        Linkify.addLinks(spannableText, Linkify.WEB_URLS);
+        textView.setText(spannableText);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setTextSize(14);
+        //textView.setTextColor(Color.LTGRAY);
+        textView.setPadding(5, 5, 5, 15);
+        s_view.addView(textView);
+        builder.setView(s_view);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Chiudi", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
 
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                public void onTimeSet(org.holoeverywhere.widget.TimePicker view, int hourOfDay, int minute) {
                     ora = hourOfDay;
                     minuti = minute;
                     searchAuleLibere();
@@ -197,5 +229,4 @@ public class SecondActivity extends MenuActivity {
 
                 }
             };
-
 }

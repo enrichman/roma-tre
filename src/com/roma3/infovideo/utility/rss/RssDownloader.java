@@ -1,7 +1,9 @@
 package com.roma3.infovideo.utility.rss;
 
 import android.util.Log;
+
 import com.roma3.infovideo.model.RssItem;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;

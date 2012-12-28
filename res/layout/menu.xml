@@ -10,9 +10,9 @@
  #
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
     <!--
     <TextView
@@ -33,50 +33,14 @@
             android:text="@string/rssListTitle"
             android:gravity="center" />
 
-
-    <LinearLayout
-            android:id="@+id/rss_loading_container"
-            android:layout_below="@+id/rss_list_title"
-            android:layout_width="match_parent"
+    <TextView
+            android:id="@+id/rss_connection"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            >
-
-        <ProgressBar
-                android:id="@+id/rss_loading_progressbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                />
-        <TextView
-                android:id="@+id/rss_loading_text"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="@string/rssLoading"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/rss_error_container"
-            android:layout_below="@+id/rss_list_title"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:gravity="center"
+            android:text="@string/rssConnection"
             android:layout_marginTop="50dp"
-            android:gravity="center" >
-
-        <TextView
-                android:id="@+id/rss_connection"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/rssConnection"
-                android:gravity="center"
-                android:drawableBottom="@drawable/wifi"
-                android:drawablePadding="10dp"/>
-    </LinearLayout>
+            android:layout_below="@+id/rss_list_title"/>
 
     <ListView
             android:id="@+id/rss_list"
@@ -94,28 +58,28 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/btn_lezioni_giorno"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/buttonLezioniGiorno" />
+        <Button
+                android:id="@+id/btn_lezioni_giorno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/buttonLezioniGiorno" />
 
 
 
-    <Button
-        android:id="@+id/btn_aule_libere"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/buttonAuleLibere" />
+        <Button
+                android:id="@+id/btn_aule_libere"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/buttonAuleLibere" />
 
-    <Button
-        android:id="@+id/btn_lezioni_altri_gg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/buttonLezioniData" />
+        <Button
+                android:id="@+id/btn_lezioni_altri_gg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/buttonLezioniData" />
 
     </LinearLayout>
 

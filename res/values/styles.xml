@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="DarkTheme" parent="Holo.Theme"/>
+    <style name="LightTheme" parent="Holo.Theme.Light">
+       <!--  <item name="android:background">@android:color/white</item> -->
+    </style>  
+</resources>

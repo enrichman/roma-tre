@@ -10,7 +10,7 @@ package com.roma3.infovideo.model;
  * @author Enrico Candino
  */
 public class Aula {
-	
+
 	private String nome;
 
     private int capacita;

@@ -9,41 +9,50 @@
  # @author Enrico Candino
  #
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:holo="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Visualizzazione">
+    <PreferenceCategory holo:title="Visualizzazione">
 
-        <ListPreference android:key="theme"
-                        android:title="Tema"
-                        android:summary="Scegli un tema disponibile (riavvia l'applicazione)"
-                        android:entries="@array/themeOptions"
-                        android:entryValues="@array/themeValues" />
+        <ListPreference holo:key="theme"
+                        holo:title="Tema"
+                        holo:summary="Scegli un tema disponibile\n(Necessità il riavvio)"
+                        holo:entries="@array/themeOptions"
+                        holo:entryValues="@array/themeValues" />
 
-        <CheckBoxPreference android:key="rss_autoscroll"
-                            android:title="Autoscroll"
-                            android:summary="@string/autoscroll"
-                            android:defaultValue="false"/>
+        <CheckBoxPreference holo:key="rss_autoscroll"
+                            holo:title="Autoscroll"
+                            holo:summary="@string/autoscroll"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:key="storage"
-            android:title="Salvataggio">
+            holo:key="storage"
+            holo:title="Salvataggio">
 
         <CheckBoxPreference
-                android:key="saveOnSd"
-                android:title="Salvataggio su sd"
-                android:summary="Abilita salvataggio su SD card"
-                android:defaultValue="false"/>
+                holo:key="saveOnSd"
+                holo:title="Salvataggio su sd"
+                holo:summary="Abilita salvataggio su SD card"
+                holo:defaultValue="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:key="first_category"
-            android:title="Informazioni">
+            holo:key="restart_category"
+            holo:title="Restart">
 
         <Preference
-                android:key="version"
-                android:title="Versione"
-                android:summary="@string/versionName"/>
+                holo:key="restart"
+                holo:title="Riavvia"
+                holo:summary="@string/restart"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            holo:key="info_category"
+            holo:title="Informazioni">
+
+        <Preference
+                holo:key="version"
+                holo:title="Versione"
+                holo:summary="@string/versionName"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -29,6 +29,7 @@ import android.util.Log;
 import android.webkit.WebView;
 import com.roma3.infovideo.R;
 
+
 public class ChangeLog {
 
     private final Context context;

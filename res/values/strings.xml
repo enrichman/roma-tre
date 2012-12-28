@@ -11,7 +11,7 @@
 -->
 <resources>
 
-    <string name="versionName">1.4</string>
+    <string name="versionName">2.0</string>
 
     <string name="app_name">RomaTRE - Orari e avvisi</string>
     <string name="title">Orari ed Avvisi</string>
@@ -32,9 +32,10 @@
     <string name="rssBaseUrl">http://mobile.uniroma3.it/</string>
 
     <!-- SETTINGS -->
-    <string name="autoscroll">Abilita autoscroll per gli avvisi</string>
+    <string name="autoscroll">Abilita autoscroll per gli avvisi\n(Necessità il riavvio)</string>
 
     <string name="button">Trova le lezioni!</string>
+    <string name="restart">Clicca per riavviare l\'app</string>
     
     <string name="buttonLezioniGiorno">Mostra le lezioni di oggi</string>
     <string name="buttonAuleLibere">Mostra le aule libere</string>

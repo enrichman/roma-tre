@@ -1,29 +1,24 @@
 package com.roma3.infovideo.activities;
 
-import android.graphics.Color;
-import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.roma3.infovideo.model.Lezione;
-import com.roma3.infovideo.R;
-import com.roma3.infovideo.utility.AuleLibereUtility;
-
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.roma3.infovideo.utility.TitleColorManager;
-import com.roma3.infovideo.utility.lessons.LessonsDownloadingException;
-import com.roma3.infovideo.utility.lessons.LessonsDownloader;
-import com.roma3.infovideo.utility.ThemeManager;
-import com.roma3.infovideo.activities.menu.MenuListActivity;
+import org.holoeverywhere.app.ListActivity;
+import org.holoeverywhere.app.ProgressDialog;
 
-import android.app.ListActivity;
-import android.app.ProgressDialog;
+import com.roma3.infovideo.model.Lezione;
+import com.roma3.infovideo.utility.AuleLibereUtility;
+import com.roma3.infovideo.utility.ThemeManager;
+import com.roma3.infovideo.utility.lessons.LessonsDownloader;
+import com.roma3.infovideo.utility.lessons.LessonsDownloadingException;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
+import com.roma3.infovideo.R;
 
 /**
  * Version 1.2
@@ -34,17 +29,18 @@ import android.widget.Toast;
  *
  * @author Enrico Candino
  */
-public class AuleLibereActivity extends MenuListActivity {
+public class AuleLibereActivity extends ListActivity {
 
     private ArrayList<Lezione> lezioni;
     private ArrayList<String> auleLibere;
     private int ora;
     private int minuti;
 
-    public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+
+    public void onCreate(Bundle savedInstanceState) {
         ThemeManager.setTheme(this);
+        super.onCreate(savedInstanceState);
         //int sdk = Build.VERSION.SDK_INT;
 
         Bundle bundle = getIntent().getExtras();
@@ -53,16 +49,16 @@ public class AuleLibereActivity extends MenuListActivity {
         String selectedFaculty = bundle.getString("selectedFaculty");
         String url = bundle.getString("url");
 
-        //if (sdk < 11) {
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.aule_libere);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-        LinearLayout title = (LinearLayout) findViewById(R.id.title);
-        title.setBackgroundColor(Color.parseColor(bundle.getString("color")));
-        TextView titleText = (TextView) findViewById(R.id.title_text);
-        titleText.setText("Facoltà di " + selectedFaculty);
-        TitleColorManager.white(selectedFaculty, titleText, this);
-        //}
+//        //if (sdk < 11) {
+//        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+//        setContentView(R.layout.aule_libere);
+//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+//        LinearLayout title = (LinearLayout) findViewById(R.id.title);
+//        title.setBackgroundColor(Color.parseColor(bundle.getString("color")));
+//        TextView titleText = (TextView) findViewById(R.id.title_text);
+//        titleText.setText("Facolt√† di " + selectedFaculty);
+//        TitleColorManager.white(selectedFaculty, titleText, this);
+//        //}
 
         new DownloadXmlTask(this).execute(selectedFaculty, url);
     }

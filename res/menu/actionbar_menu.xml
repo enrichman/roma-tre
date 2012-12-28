@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ # Version 1.2
+ # Copyright (C) 2012 Enrico Candino ( enrico.candino@gmail.com )
+ #
+ # This file is part of "Roma Tre".
+ # "Roma Tre" is released under the General Public Licence V.3 or later
+ #
+ # @author Enrico Candino
+ #
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item 
+        android:id="@+id/menu" 
+        android:icon="@drawable/ic_menu_manage"
+        android:showAsAction="ifRoom">
+    	<menu>
+	    	<item android:id="@+id/settings" android:icon="@drawable/ic_menu_manage" android:title="Impostazioni"/>
+    		<item android:id="@+id/credits" android:icon="@drawable/ic_menu_info_details" android:title="Credits"/>
+	   	</menu>
+    </item>
+
+
+</menu>

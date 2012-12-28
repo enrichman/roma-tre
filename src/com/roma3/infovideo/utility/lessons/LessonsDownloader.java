@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
 import com.roma3.infovideo.model.Lezione;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -105,18 +107,26 @@ public class LessonsDownloader {
                 conn.setReadTimeout(10000);
             } catch (IOException e) {
                 f.delete();
-                throw new LessonsDownloadingException(
-                        "Error while opening the connection", e
-                );
+                try{
+                    fos.close();
+                } catch (IOException e2) {
+                    f.delete();
+                    throw new LessonsDownloadingException("Error while closing the InputStream", e2);
+                }
+                throw new LessonsDownloadingException("Error while opening the connection", e);
             }
             InputStream in;
             try {
-                in = conn.getInputStream();
+                in = conn.getInputStream();//context.getAssets().open("xml/ing.xml");
             } catch (IOException e) {
                 f.delete();
-                throw new LessonsDownloadingException(
-                        "Error while getting the InputStream", e
-                );
+                try{
+                    fos.close();
+                } catch (IOException e2) {
+                    f.delete();
+                    throw new LessonsDownloadingException("Error while closing the InputStream", e2);
+                }
+                throw new LessonsDownloadingException("Error while getting the InputStream", e);
             }
             byte[] buffer = new byte[1024];
             int len = 0;
@@ -126,18 +136,14 @@ public class LessonsDownloader {
                 }
             } catch (IOException e) {
                 f.delete();
-                throw new LessonsDownloadingException(
-                        "Error while reading the InputStream", e
-                );
+                throw new LessonsDownloadingException("Error while reading the InputStream", e);
             }
             try{
                 fos.close();
                 in.close();
             } catch (IOException e) {
                 f.delete();
-                throw new LessonsDownloadingException(
-                        "Error while closing the InputStream", e
-                );
+                throw new LessonsDownloadingException("Error while closing the InputStream", e);
             }
             Log.i("LEZIONI ROMA TRE","File [" + fileName + "] created!");
         } else {

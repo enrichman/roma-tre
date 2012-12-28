@@ -19,6 +19,10 @@
     </style>
   </head>
   <body>
+$ 2.0
+  % Version 2.0
+    * Nuovo design
+    * Lezioni divise per aula
 $ 1.4
   % Version 1.4
     * Aggiunto il refresh per gli avvisi

@@ -20,27 +20,27 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class LessonsHandler extends DefaultHandler {
 
-	private ArrayList<Aula> aule;
-	private Aula aula;
-	private ArrayList<Corso> corsi = new ArrayList<Corso>();
-	private Corso corso;
-	private ArrayList<Lezione> lezioni;
-	private Lezione lezione;
-	
-	private boolean in_corso;
-	private boolean in_insegnamento;
-	private boolean in_periodoAnnoAccademico;
+    private ArrayList<Aula> aule;
+    private Aula aula;
+    private ArrayList<Corso> corsi = new ArrayList<Corso>();
+    private Corso corso;
+    private ArrayList<Lezione> lezioni;
+    private Lezione lezione;
 
-	private String value;
+    private boolean in_corso;
+    private boolean in_insegnamento;
+    private boolean in_periodoAnnoAccademico;
+
+    private String value;
     private StringBuffer buffer;
 
-	@Override
-	public void startElement(
-			String nameSpaceURI, 
-			String localName, 
-			String qName, 
-			Attributes atts
-			) {
+    @Override
+    public void startElement(
+            String nameSpaceURI,
+            String localName,
+            String qName,
+            Attributes atts
+    ) {
 
         buffer = new StringBuffer();
 
@@ -64,11 +64,11 @@ public class LessonsHandler extends DefaultHandler {
         }
 
     }
-	
-	public void endElement(
-			String uri, 
-			String localName, 
-			String qName) {
+
+    public void endElement(
+            String uri,
+            String localName,
+            String qName) {
 
         value = buffer.toString();
         buffer.setLength(0);
@@ -109,10 +109,10 @@ public class LessonsHandler extends DefaultHandler {
             in_corso = false;
 
     }
-	
-	public void characters(char[] ch, int start, int end) {
+
+    public void characters(char[] ch, int start, int end) {
         buffer.append(new String(ch, start, end));
-	}
+    }
 
     public ArrayList<Aula> getAule() {
         return this.aule;
@@ -131,40 +131,40 @@ public class LessonsHandler extends DefaultHandler {
     }
 
     // TODO we should save everything we download..
-	public ArrayList<Lezione> getLessons(Date date) {
-		ArrayList<Lezione> lessons = new ArrayList<Lezione>();
-		for(Corso c : corsi) {
-			for(Lezione l : c.getLezioni()) {
-				String today = getDate(date);
-				if(l.getGiorno().equals(today))
-					lessons.add(l);
-			}
-		}
+    public ArrayList<Lezione> getLessons(Date date) {
+        ArrayList<Lezione> lessons = new ArrayList<Lezione>();
+        for(Corso c : corsi) {
+            for(Lezione l : c.getLezioni()) {
+                String today = getDate(date);
+                if(l.getGiorno().equals(today))
+                    lessons.add(l);
+            }
+        }
         Collections.sort(lessons);
-		return lessons;
-	}
-	
-	private String getDate(Date date) {
-		Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH)+1;
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		return stringify(year) + "-" + stringify(month) + "-" + stringify(day);
-	}
-	
-	private String stringify(int date) {
-		if(date < 10)
-			return "0" + String.valueOf(date);
-		return String.valueOf(date);
-	}
+        return lessons;
+    }
 
-	public ArrayList<Lezione> getAllLessons() {
-		ArrayList<Lezione> allLessons = new ArrayList<Lezione>();
-		for(Corso c : corsi) {
-			allLessons.addAll(c.getLezioni());
-		}
-		return allLessons;
-	}
+    private String getDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return stringify(year) + "-" + stringify(month) + "-" + stringify(day);
+    }
+
+    private String stringify(int date) {
+        if(date < 10)
+            return "0" + String.valueOf(date);
+        return String.valueOf(date);
+    }
+
+    public ArrayList<Lezione> getAllLessons() {
+        ArrayList<Lezione> allLessons = new ArrayList<Lezione>();
+        for(Corso c : corsi) {
+            allLessons.addAll(c.getLezioni());
+        }
+        return allLessons;
+    }
 
 }

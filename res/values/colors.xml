@@ -10,7 +10,7 @@
  #
 -->
 <resources>
-    <color name="titleBackground">#cecece</color>
-    <color name="textColor">#000</color>
-    <color name="darkBackground">#3e3e3e</color>
+    <!--   <color name="titleBackground">#cecece</color>
+  <color name="textColor">#000</color>
+  <color name="darkBackground">#3e3e3e</color> -->
 </resources>
